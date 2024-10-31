@@ -1,0 +1,22 @@
+- name: Copy MongoDB Repo file
+  ansible.builtin.copy:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: install mongodb client
+  ansible.builtin.yum:
+    name: mongodb-org-shell
+    state: installed
+
+- name: load Schema
+  ansible.builtin.shell: mongo --host mongodb-dev.sandeepreddymunagala123.xyz </app/schema/{{ component }}.js
+
+
+
+
+
+
+
+
+
+
