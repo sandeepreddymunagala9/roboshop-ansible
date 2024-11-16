@@ -1,4 +1,4 @@
-- name: Installing Nginx Server
+- name: installing Nginx server
   ansible.builtin.yum:
     name: nginx
     state: latest
@@ -19,28 +19,15 @@
     dest: /usr/share/nginx/html
     remote_src: yes
 
-- name: Copy nginx configuration
-  ansible.builtin.template:
-    src: nginx.conf
-    dest: /etc/nginx/nginx.conf
-
-- name: Copy roboshop configuration
-  ansible.builtin.template:
+- name: copy roboshop configuration
+  ansible.builtin.copy:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
 
-- name: Start Nginx Service
+- name: start Ngninx Server
   ansible.builtin.systemd:
     state: restarted
-    name: nginx
+    name: httpd
     enabled: true
 
-- name: Load NodeJS
-  ansible.builtin.import_role:
-    name: elk
-    tasks_from: filebeat
 
-- name: Load Prometheus Node exporter
-  ansible.builtin.import_role:
-    name: prometheus
-    tasks_from: node-exporter
